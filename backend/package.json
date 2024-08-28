@@ -10,12 +10,17 @@
     "prisma:migrate:reset": "npx prisma migrate reset",
     "prisma:migrate:dev": "npx prisma migrate dev",
     "prisma:migrate:deploy": "npx prisma migrate deploy",
-    "dev": "docker-compose up -d && tsx watch src/server.ts",
+    "lint": "eslint --cache --fix",
+    "format": "prettier --write .",
+    "dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir build",
     "start": "node build/server.js"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",
+    "eslint": "^8.57.0",
+    "eslint-config-universe": "13.0.0",
+    "prettier": "3.3.3",
     "prisma": "^5.19.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.0",
