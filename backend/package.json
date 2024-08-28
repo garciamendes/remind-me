@@ -5,8 +5,6 @@
   "scripts": {
     "test": "vitest run --dir src/useCases",
     "test:watch": "vitest --dir src/useCases",
-    "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui",
     "prisma:migrate:reset": "npx prisma migrate reset",
     "prisma:migrate:dev": "npx prisma migrate dev",
     "prisma:migrate:deploy": "npx prisma migrate deploy",
