@@ -15,7 +15,7 @@ model User {
   name String?
 
   auth Auth?
-  Task Task[]
+  task Task[]
 
   createdAt  DateTime @default(now()) @map("created_at")
   modifiedAt DateTime @updatedAt @map("modified_at")
