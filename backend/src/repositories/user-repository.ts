@@ -1,9 +1,9 @@
-import { User } from '@prisma/client'
-import { CreateUser } from '../utils/types'
+import { Auth, User } from '@prisma/client'
+import { CredentialsUser } from '../utils/types'
 
 export interface IUserRepository {
-  create: (data: CreateUser) => Promise<void>
+  create: (data: CredentialsUser) => Promise<void>
   findByEmail: (email: string) => Promise<User | null>
-  // login: (data: Login) => Promise<null>
-  // logout: (data: Logout) => Promise<null>
+  findAuthByUser: (userId: string) => Promise<Auth>
+  findUserById: (userId: string) => Promise<User | null>
 }
