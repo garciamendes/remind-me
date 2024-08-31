@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   Form,
   FormControl,
@@ -11,12 +12,15 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff, LoaderCircle } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useAuthUser } from "@/hooks/authUser"
+import { withAuth } from "@/hooks/withAuth"
 
-export const Login = () => {
+const Login = () => {
   const navigate = useNavigate()
+  const { handleLoginUser, isPending } = useAuthUser()
   const [showPassword, setShowPassword] = useState(false)
 
   const formCredentials = useForm<CredentialsUserLogin>({
@@ -27,8 +31,8 @@ export const Login = () => {
     },
   })
 
-  function onSubmit(data: CredentialsUserLogin) {
-    console.log(data)
+  async function onSubmit(data: CredentialsUserLogin) {
+    await handleLoginUser(data)
   }
 
   const handleShowPassword = () => setShowPassword(!showPassword)
@@ -77,7 +81,13 @@ export const Login = () => {
           />
 
           <div className="flex-1 flex flex-col !mt-32 gap-9">
-            <Button className="h-12" type="submit">Entrar</Button>
+            <Button className="h-12" type="submit" disabled={isPending}>
+              {isPending ? (
+                <div className='animate-spin'>
+                  <LoaderCircle className="text-zinc-100" size={20} />
+                </div>
+              ) : 'Entrar'}
+            </Button>
 
             <div className="relative flex items-center justify-center">
               <hr className="w-full border-t border-orange-500 mx-auto" />
@@ -97,3 +107,5 @@ export const Login = () => {
     </div>
   )
 }
+
+export default withAuth(Login, false)

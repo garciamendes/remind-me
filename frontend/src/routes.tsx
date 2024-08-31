@@ -1,8 +1,9 @@
-import { createBrowserRouter } from "react-router-dom"
-import { Login } from "./pages/authenticate/login"
-import { ErrorPage } from "./pages/errorPage"
 import { BaseAuthenticate } from "./pages/authenticate"
-import { Register } from "./pages/authenticate/register"
+import { createBrowserRouter } from "react-router-dom"
+import { ErrorPage } from "./pages/errorPage"
+import Home from "./pages/home"
+import Login from "./pages/authenticate/login"
+import Register from "./pages/authenticate/register"
 
 export const routes = createBrowserRouter([
   {
@@ -19,5 +20,10 @@ export const routes = createBrowserRouter([
         element: <Register />
       }
     ]
+  },
+  {
+    path: '/',
+    element: <Home />,
+    errorElement: <ErrorPage />,
   }
 ])

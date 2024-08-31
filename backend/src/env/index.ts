@@ -6,6 +6,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   DATABASE_URL: z.string(),
   SALT_HASH: z.coerce.number().default(10),
+  ALLOW_CORS: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
