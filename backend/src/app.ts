@@ -2,21 +2,22 @@ import Fastify from 'fastify'
 import { ZodError } from 'zod'
 import { env } from './env'
 import fastifyJwt from '@fastify/jwt'
-import fastifyCookie from '@fastify/cookie'
+import { userControllerRoutes } from './http/controllers/user/routes'
+import fastifyCors from '@fastify/cors'
 
 export const fastify = Fastify()
 
+fastify.register(fastifyCors, {
+  origin: env.ALLOW_CORS,
+})
 fastify.register(fastifyJwt, {
   secret: env.JWT_SECRET,
-  cookie: {
-    cookieName: 'refreshToken',
-    signed: false,
-  },
   sign: {
     expiresIn: '10m',
   },
 })
-fastify.register(fastifyCookie)
+
+fastify.register(userControllerRoutes, { prefix: '/api' })
 
 fastify.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
