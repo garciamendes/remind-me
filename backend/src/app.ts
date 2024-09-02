@@ -4,6 +4,7 @@ import { env } from './env'
 import fastifyJwt from '@fastify/jwt'
 import { userControllerRoutes } from './http/controllers/user/routes'
 import fastifyCors from '@fastify/cors'
+import { TaskControllerRoutes } from './http/controllers/task/routes'
 
 export const fastify = Fastify()
 
@@ -17,7 +18,8 @@ fastify.register(fastifyJwt, {
   },
 })
 
-fastify.register(userControllerRoutes, { prefix: '/api' })
+fastify.register(userControllerRoutes, { prefix: '/api/auth' })
+fastify.register(TaskControllerRoutes, { prefix: '/api/tasks' })
 
 fastify.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

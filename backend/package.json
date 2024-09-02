@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "test": "vitest run --dir src/useCases",
+    "test": "vitest run --reporter=verbose --dir src/useCases",
     "test:watch": "vitest --dir src/useCases",
     "prisma:migrate:reset": "npx prisma migrate reset",
     "prisma:migrate:dev": "npx prisma migrate dev",
     "prisma:migrate:deploy": "npx prisma migrate deploy",
+    "prisma:tasks-default": "npx prisma db seed",
     "lint": "eslint --cache --fix",
     "format": "prettier --write .",
     "dev": "tsx watch src/server.ts",
@@ -15,8 +16,9 @@
     "start": "node build/server.js"
   },
   "devDependencies": {
+    "@faker-js/faker": "8.4.1",
     "@types/bcryptjs": "2.4.6",
-    "@types/node": "^22.5.1",
+    "@types/node": "22.5.2",
     "eslint": "^8.57.0",
     "eslint-config-universe": "13.0.0",
     "prettier": "3.3.3",
@@ -35,5 +37,8 @@
     "dotenv": "^16.4.5",
     "fastify": "^4.28.1",
     "zod": "^3.23.8"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   }
 }

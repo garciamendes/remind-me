@@ -1,10 +1,7 @@
-// Third part
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-
-// Project
 import { UserCredentialsError } from '../../../useCases/errors/user-credentials-error'
-import { makeAuthenticateUseCase } from '../../../useCases/factories/authenticate-user-use-case'
+import { makeAuthenticateUseCase } from '../../../useCases/factories/make-authenticate-user-use-case'
 
 export async function authenticate(
   request: FastifyRequest,
