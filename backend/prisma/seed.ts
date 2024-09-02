@@ -1,4 +1,4 @@
-import { PrismaClient, Task } from '@prisma/client'
+import { PrismaClient, Prisma } from '@prisma/client'
 import { faker } from '@faker-js/faker'
 import { hash } from 'bcryptjs'
 import { env } from '../src/env'
@@ -6,6 +6,10 @@ import { env } from '../src/env'
 const prisma = new PrismaClient()
 
 async function main() {
+  console.log(
+    '--- Starting the popular process the bank for TASKs and Demo user ---'
+  )
+
   const userDemo = await prisma.user.create({
     data: {
       name: 'demo',
@@ -22,8 +26,8 @@ async function main() {
     },
   })
 
-  const tasks: Task[] = []
-  for (let i = 1; i < 100; i++) {
+  const tasks: Prisma.TaskCreateManyInput[] = []
+  for (let i = 1; i <= 100; i++) {
     tasks.push({
       id: faker.string.uuid(),
       title: faker.lorem.words(5),

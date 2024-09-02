@@ -40,7 +40,7 @@ model Task {
   description String?
   completedAt DateTime?
 
-  userId String @unique
+  userId String
   user   User   @relation(fields: [userId], references: [id])
 
   createdAt  DateTime @default(now()) @map("created_at")
