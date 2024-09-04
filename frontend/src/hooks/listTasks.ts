@@ -4,6 +4,7 @@ import { api } from "@/service/api"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
+import { useSearchParams } from "react-router-dom"
 import { toast } from "sonner"
 
 export interface ITasks {
@@ -24,7 +25,6 @@ export interface IListTasks {
 }
 
 export interface IFiltersListTasks {
-  page?: number
   search?: string
 }
 
@@ -32,15 +32,19 @@ export interface IUseListaTasksProps {
   filters: IFiltersListTasks
 }
 
-export const useListTasks = ({ filters }: IUseListaTasksProps) => {
+export const useListTasks = () => {
   const { ref, inView } = useInView()
+  const [searchParams,] = useSearchParams()
+  const search = searchParams.get('search')
 
   const fetchTask = useInfiniteQuery<IListTasks>({
-    queryKey: ["list_tasks"],
+    queryKey: ["list_tasks", search],
     queryFn: async ({ pageParam }) => {
-      const params = `page=${pageParam}`
+      let params = `page=${pageParam}`
 
-      if (filters.search) params.concat(`&search=${filters.search}`)
+      if (search) {
+        params = `page=${pageParam}&search=${search}`
+      }
 
       const response = await api.get(`/api/tasks?${params}`)
 

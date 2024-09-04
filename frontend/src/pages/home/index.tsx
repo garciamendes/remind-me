@@ -3,18 +3,27 @@ import { Button } from "@/components/ui/button"
 import { Header } from "@/components/ui/header"
 import { Input } from "@/components/ui/input"
 import { Task } from "@/components/ui/task"
-import { IFiltersListTasks, useListTasks } from "@/hooks/listTasks"
+import { useListTasks } from "@/hooks/listTasks"
 import { withAuth } from "@/hooks/withAuth"
-import { LoaderCircle } from "lucide-react"
+import { LoaderCircle, Search } from "lucide-react"
 import { useState } from "react"
+import { useSearchParams } from "react-router-dom"
 
 const Home = () => {
-  const [filtersTasks, setFiltersTasks] = useState<IFiltersListTasks>({})
-
-  const { data, status, refetch, refKeyNextPage } = useListTasks({ filters: filtersTasks })
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [serchFilterTask, setSearchFilterTask] = useState(searchParams.get('search'))
   const [taskShowExpanded, setTaskShowExpanded] = useState('')
   const [taskToEdit, setTaskToEdit] = useState('')
 
+  const {
+    data,
+    status,
+    refetch,
+    refKeyNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+    isFetching
+  } = useListTasks()
 
   const handleIsEdit = (taskID: string) => {
     if (taskID === taskToEdit)
@@ -29,10 +38,6 @@ const Home = () => {
     else
       setTaskShowExpanded(taskID)
   }
-
-  // const changeFilters = (key: keyof IFiltersListTasks, value: string | number) => {
-  //   setFiltersTasks(prevState => ({ ...prevState, [key]: value }))
-  // }
 
   const renderTasks = () => {
     if (status === 'error') {
@@ -75,17 +80,22 @@ const Home = () => {
             })
           )
         })}
-        <div ref={refKeyNextPage}></div>
 
-        {status === 'pending' && (
+        {(isFetchingNextPage || isFetching) && (
           <div className="w-full flex justify-center items-center">
             <div className='animate-spin'>
               <LoaderCircle className="text-orange-500" size={40} />
             </div>
           </div>
         )}
+
+        {hasNextPage && <div ref={refKeyNextPage}></div>}
       </>
     )
+  }
+
+  const handleChangeFilter = () => {
+    setSearchParams({ 'search': serchFilterTask || '' })
   }
 
   return (
@@ -93,9 +103,13 @@ const Home = () => {
       <Header />
 
       <div className="flex flex-col w-[1000px] h-[calc(100vh-var(--header-height))] pt-2 m-auto">
-        <Input />
+        <Input
+          onChange={(event) => setSearchFilterTask(event.target.value)}
+          iconDirection="right"
+          icon={<Search className="cursor-pointer" onClick={handleChangeFilter} size={25} />}
+        />
 
-        <div className="flex flex-1 flex-col overflow-auto [&::-webkit-scrollbar]:hidden w-full pt-2">
+        <div className="flex flex-1 flex-col gap-20 overflow-auto [&::-webkit-scrollbar]:hidden w-full pt-2">
           {renderTasks()}
         </div>
       </div>
