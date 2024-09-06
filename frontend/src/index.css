@@ -42,3 +42,21 @@
     @apply h-full w-full bg-zinc-800 text-zinc-100;
   }
 }
+
+@media screen and (max-width: 1039px) {
+  .responsive-container-home {
+    width: 95% !important;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .responsive-content-search {
+    width: 50% !important;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .responsive-content-search {
+    width: 70% !important;
+  }
+}

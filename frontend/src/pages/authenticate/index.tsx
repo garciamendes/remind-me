@@ -1,8 +1,10 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Outlet } from "react-router-dom"
 import LogoImgSvg from "@/assets/images/logo.svg"
 import PlaceholderImgSvg from "@/assets/images/placeholder-auth.svg"
+import { withAuth } from "@/hooks/withAuth"
 
-export const BaseAuthenticate = () => {
+const BaseAuthenticate = () => {
   return (
     <div className="h-screen flex">
       <div className="w-[500px] bg-zinc-950 flex flex-col px-8 md:max-lg:w-full sm:max-lg:w-full">
@@ -19,3 +21,5 @@ export const BaseAuthenticate = () => {
     </div>
   )
 }
+
+export default withAuth(BaseAuthenticate, false)

@@ -87,7 +87,7 @@ export const Task = ({
     <div className="w-full h-auto">
       <div
         data-show-description={isEdit || isExpanded}
-        className="h-0 w-full rounded-[20px] bg-zinc-900 rounded-b-[20px] data-[show-description=true]:h-auto duration-300">
+        className="w-full rounded-[20px] bg-zinc-900 rounded-b-[20px] data-[show-description=true]:h-auto duration-300  responsive-task">
         <div className="w-full flex justify-between bg-zinc-800 items-center h-16 px-3 rounded-[20px] z-50">
           <div className="flex flex-1 items-center gap-5">
             {(isExpanded || isEdit) ?

@@ -1,4 +1,4 @@
-import { BaseAuthenticate } from "./pages/authenticate"
+import BaseAuthenticate from "./pages/authenticate"
 import { createBrowserRouter } from "react-router-dom"
 import { ErrorPage } from "./pages/errorPage"
 import Home from "./pages/home"

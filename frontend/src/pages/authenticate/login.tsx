@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+ 
 import {
   Form,
   FormControl,
@@ -16,7 +16,6 @@ import { Eye, EyeOff, LoaderCircle } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthUser } from "@/hooks/authUser"
-import { withAuth } from "@/hooks/withAuth"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -108,4 +107,4 @@ const Login = () => {
   )
 }
 
-export default withAuth(Login, false)
+export default Login

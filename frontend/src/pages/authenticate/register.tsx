@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
+ 
 import {
   Form,
   FormControl,
@@ -16,7 +16,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { CredentialsUserRegister, credentialsUserRegisterSchema } from "./types"
 import { useCreateUser } from "@/hooks/createUser"
-import { withAuth } from "@/hooks/withAuth"
 
 const Register = () => {
   const navigate = useNavigate()
@@ -136,4 +135,4 @@ const Register = () => {
   )
 }
 
-export default withAuth(Register, false)
+export default Register
