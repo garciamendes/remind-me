@@ -1,8 +1,9 @@
 import { fastify } from './app'
+import { env } from './env'
 
 fastify
   .listen({
-    port: 3333,
+    port: env.PORT,
   })
   .then(() => {
     console.log('HTTP Server Running 🚀')
