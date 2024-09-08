@@ -69,14 +69,6 @@ const Home = () => {
     return (
       <>
         {data?.pages.map(page => {
-          if (!page?.results.length) {
-            return (
-              <div className="w-full flex flex-col justify-center items-center">
-                <span className="text-orange-500">Nenhuma tarefa foi encontrada!</span>
-              </div>
-            )
-          }
-
           return (
             page?.results.map(task => {
               return (
