@@ -10,6 +10,8 @@ export const fastify = Fastify()
 
 fastify.register(fastifyCors, {
   origin: env.ALLOW_CORS,
+  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  allowedHeaders: ['content-type', 'accept', 'content-type', 'authorization'],
 })
 fastify.register(fastifyJwt, {
   secret: env.JWT_SECRET,
