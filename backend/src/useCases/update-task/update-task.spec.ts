@@ -37,7 +37,7 @@ describe('Update task', () => {
   it('Should be possible to update a task', async () => {
     const taskTitleUpdated = 'lorem title updated'
     const taskDescriptionUpdated = 'lorem description updated'
-    const taskCompletedAtUpdated = new Date()
+    const taskCompletedAtUpdated = new Date().toISOString()
 
     const taskUpdated = await sut.execute(user.id, task.id, {
       title: taskTitleUpdated,
@@ -59,7 +59,7 @@ describe('Update task', () => {
   it('Should not be possible to update a task without passing the ID of the same', async () => {
     const taskTitleUpdated = 'lorem title updated'
     const taskDescriptionUpdated = 'lorem description updated'
-    const taskCompletedAtUpdated = new Date()
+    const taskCompletedAtUpdated = new Date().toISOString()
 
     expect(() =>
       sut.execute(user.id, '', {
@@ -73,7 +73,7 @@ describe('Update task', () => {
   it('Should not be possible to update a task without passing the user id', async () => {
     const taskTitleUpdated = 'lorem title updated'
     const taskDescriptionUpdated = 'lorem description updated'
-    const taskCompletedAtUpdated = new Date()
+    const taskCompletedAtUpdated = new Date().toISOString()
 
     expect(() =>
       sut.execute('', task.id, {
