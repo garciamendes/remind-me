@@ -21,7 +21,6 @@ export const useAuthUser = () => {
       setCookie(KEY_AUTH, token, {
         path: '/',
         sameSite: true,
-        httpOnly: import.meta.env.PROD,
       })
       navigate('/')
     },
