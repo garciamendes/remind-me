@@ -12,7 +12,7 @@
     "lint": "eslint --cache --fix",
     "format": "prettier --write .",
     "dev": "tsx watch src/server.ts",
-    "build": "tsup src --out-dir build",
+    "build": "yarn && tsup src --out-dir build && npx prisma migrate deploy && npx prisma db seed",
     "start": "node build/server.js"
   },
   "devDependencies": {
