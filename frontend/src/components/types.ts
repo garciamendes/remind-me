@@ -2,8 +2,8 @@ export interface ITask {
   id: string
   title: string
   description: string
-  completedAt: Date | string
+  completedAt: string
   userId: string
-  createdAt: Date | string
-  modifiedAt: Date | string
+  createdAt: string
+  modifiedAt: string
 }

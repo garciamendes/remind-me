@@ -17,7 +17,9 @@ export async function authenticate(
       password,
     })
 
-    const token = await reply.jwtSign({ sign: { sub: auth.id } })
+    const token = await reply.jwtSign({
+      sign: { sub: auth.userId, expiresIn: '7d' },
+    })
     return reply.status(200).send({ token: token })
   } catch (error) {
     if (error instanceof UserCredentialsError) {

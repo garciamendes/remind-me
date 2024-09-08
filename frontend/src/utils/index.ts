@@ -1,7 +1,7 @@
-import secureStorage from 'react-secure-storage'
+export interface IOptionTruncate {
+  length: number
+}
 
-export const localStorage = {
-  setItem: (key: string, value: string | number | boolean | object) => secureStorage.setItem(key, value),
-  getItem: (key: string) => secureStorage.getItem(key),
-  removeItem: (key: string) => secureStorage.removeItem(key),
+export const truncate = (content: string, option: IOptionTruncate) => {
+  return content.length > option.length? `${content.slice(0, option.length)}...` : content
 }

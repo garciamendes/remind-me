@@ -1,14 +1,26 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { GetAllTasksUseCase } from '.'
 import { InMemoryTaskRepository } from '../../repositories/in-memory/in-memory-task-repository'
+import { InMemoryUserRepository } from '../../repositories/in-memory/in-memory-user-repository'
 
+let userRepository: InMemoryUserRepository
 let taskRepository: InMemoryTaskRepository
 let sut: GetAllTasksUseCase
+let user: InMemoryUserRepository['userItems'][0]
 
 describe('Get all tasks Use Case', () => {
   beforeEach(async () => {
+    userRepository = new InMemoryUserRepository()
     taskRepository = new InMemoryTaskRepository()
-    sut = new GetAllTasksUseCase(taskRepository)
+    sut = new GetAllTasksUseCase(userRepository, taskRepository)
+
+    await userRepository.create({
+      email: 'user@example.com',
+      password: 'demo',
+    })
+
+    const u = await userRepository.findByEmail('user@example.com')
+    user = u!
   })
 
   it('Should be possible to bring all the tasks having pagination if the result is greater than 20 items being passed the first page', async () => {
@@ -18,13 +30,13 @@ describe('Get all tasks Use Case', () => {
         title: `Task ${i + 1}`,
         description: 'Task description',
         completedAt: null,
-        userId: '',
+        userId: user.id,
         createdAt: new Date(),
         modifiedAt: new Date(),
       })
     }
 
-    const result = await sut.execute({ page: 1 })
+    const result = await sut.execute(user.id, { page: 1 })
 
     expect(result.results.length).toEqual(20)
     expect(result.currentPage).toEqual(1)
@@ -38,7 +50,7 @@ describe('Get all tasks Use Case', () => {
       title: 'Task 5',
       description: 'Task description',
       completedAt: null,
-      userId: '',
+      userId: user.id,
       createdAt: new Date(),
       modifiedAt: new Date(),
     })
@@ -49,13 +61,13 @@ describe('Get all tasks Use Case', () => {
         title: `Task ${i + 1}`,
         description: 'Task description',
         completedAt: null,
-        userId: '',
+        userId: user.id,
         createdAt: new Date(),
         modifiedAt: new Date(),
       })
     }
 
-    const result = await sut.execute({ page: 1, search: 'Task 5' })
+    const result = await sut.execute(user.id, { page: 1, search: 'Task 5' })
 
     expect(result.results.length).toEqual(2)
     expect(result.currentPage).toEqual(1)
@@ -70,13 +82,13 @@ describe('Get all tasks Use Case', () => {
         title: `Task ${i + 1}`,
         description: 'Task description',
         completedAt: null,
-        userId: '',
+        userId: user.id,
         createdAt: new Date(),
         modifiedAt: new Date(),
       })
     }
 
-    const result = await sut.execute({ page: 2 })
+    const result = await sut.execute(user.id, { page: 2 })
 
     expect(result.results.length).toEqual(20)
     expect(result.currentPage).toEqual(2)

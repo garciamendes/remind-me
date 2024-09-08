@@ -1,10 +1,11 @@
 import { CredentialsUserRegister } from "@/pages/authenticate/types"
-import { api } from "@/service/api"
 import { useMutation } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
+import { useApi } from "./api"
 
 export const useCreateUser = () => {
+  const api = useApi()
   const navigate = useNavigate()
 
   const { mutateAsync: handleCreateUser, isPending } = useMutation({

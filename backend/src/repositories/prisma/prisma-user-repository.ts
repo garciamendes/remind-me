@@ -1,9 +1,9 @@
 import { Auth } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { CredentialsUser } from '../../utils/types'
-import { IUserRepository } from '../user-repository'
+import { UserRepository } from '../user-repository'
 
-export class PrismaUserRepository implements IUserRepository {
+export class PrismaUserRepository implements UserRepository {
   async create(data: CredentialsUser) {
     await prisma.auth.create({
       data: {

@@ -1,10 +1,10 @@
-import { IUserRepository } from '../../repositories/user-repository'
+import { UserRepository } from '../../repositories/user-repository'
 import { CredentialsUser } from '../../utils/types'
 import { compare } from 'bcryptjs'
 import { UserCredentialsError } from '../errors/user-credentials-error'
 
 export class AuthenticateUseCase {
-  constructor(private userRepository: IUserRepository) {}
+  constructor(private userRepository: UserRepository) {}
 
   async execute(data: CredentialsUser) {
     const user = await this.userRepository.findByEmail(data.email)

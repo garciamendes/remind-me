@@ -1,9 +1,9 @@
 import { Auth, User } from '@prisma/client'
 import { CredentialsUser } from '../../utils/types'
-import { IUserRepository } from '../user-repository'
+import { UserRepository } from '../user-repository'
 import { randomUUID } from 'node:crypto'
 
-export class InMemoryUserRepository implements IUserRepository {
+export class InMemoryUserRepository implements UserRepository {
   public userItems: User[] = []
   private authUser: Auth[] = []
 

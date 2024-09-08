@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
-import { api } from "@/service/api"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { useSearchParams } from "react-router-dom"
 import { toast } from "sonner"
+import { useApi } from "./api"
 
 export interface ITasks {
   id: string
@@ -33,6 +32,7 @@ export interface IUseListaTasksProps {
 }
 
 export const useListTasks = () => {
+  const api = useApi()
   const { ref, inView } = useInView()
   const [searchParams,] = useSearchParams()
   const search = searchParams.get('search')

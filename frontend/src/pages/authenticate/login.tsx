@@ -1,4 +1,4 @@
- 
+
 import {
   Form,
   FormControl,
@@ -12,10 +12,11 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Eye, EyeOff, LoaderCircle } from "lucide-react"
+import { Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthUser } from "@/hooks/authUser"
+import { Loader } from "@/components/ui/loader"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -82,9 +83,7 @@ const Login = () => {
           <div className="flex-1 flex flex-col !mt-32 gap-9">
             <Button className="h-12" type="submit" disabled={isPending}>
               {isPending ? (
-                <div className='animate-spin'>
-                  <LoaderCircle className="text-zinc-100" size={20} />
-                </div>
+                <Loader />
               ) : 'Entrar'}
             </Button>
 
@@ -94,6 +93,7 @@ const Login = () => {
             </div>
 
             <Button
+              disabled={isPending}
               onClick={() => navigate('/auth/register')}
               variant='outline'
               className="h-12"

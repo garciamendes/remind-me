@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useNavigate } from 'react-router-dom'
-import { localStorage } from '../utils'
 import { useEffect, useState } from 'react'
 import { LoaderCircle } from 'lucide-react'
+import { useCookies } from 'react-cookie'
+import { KEY_AUTH } from '@/utils/constants'
 
 export const withAuth = <P extends object>(
   WrappedComponent: React.ComponentType<P>,
@@ -11,10 +12,11 @@ export const withAuth = <P extends object>(
 ) => {
   const AuthenticatedComponent = (props: P) => {
     const navigate = useNavigate()
+    const [cookies] = useCookies([KEY_AUTH])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-      const authToken = localStorage.getItem('token')
+      const authToken = cookies[KEY_AUTH]
 
       if (!authToken && shouldBeAuthenticated) {
         navigate('/auth/login')

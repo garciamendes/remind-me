@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "test": "vitest run --reporter=verbose --dir src/useCases",
+    "test": "vitest run --dir src/useCases",
     "test:watch": "vitest --dir src/useCases",
     "prisma:migrate:reset": "npx prisma migrate reset",
     "prisma:migrate:dev": "npx prisma migrate dev",

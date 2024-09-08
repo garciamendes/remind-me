@@ -11,7 +11,10 @@ export async function getAllTasks(
   try {
     const getAllTasksUseCase = makeGetAllTasksUseCase()
 
-    const tasks = await getAllTasksUseCase.execute(filters)
+    const tasks = await getAllTasksUseCase.execute(
+      request.user.sign.sub,
+      filters
+    )
 
     return reply.status(200).send(tasks)
   } catch (error) {

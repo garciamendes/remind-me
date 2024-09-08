@@ -20,3 +20,22 @@ export interface IGetAllTasksResponse {
   next: number | null
   previous: number | null
 }
+
+export const createTaskSchema = z.object({
+  title: z.string().min(1, { message: 'Campo obrigatório' }),
+  description: z.string().min(1, { message: 'Campo obrigatório' }),
+})
+
+export type CreateTask = z.infer<typeof createTaskSchema>
+
+export const updateTaskSchema = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  completedAt: z.string().optional(),
+})
+
+export type UpdateTask = z.infer<typeof updateTaskSchema>
+
+export const TaskIDParamsSchema = z.object({
+  taskID: z.string().uuid(),
+})
