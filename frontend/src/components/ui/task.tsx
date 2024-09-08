@@ -23,7 +23,6 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tool
 import { Popup } from "./popup"
 import { DeviceType, useDeviceType } from "@/hooks/deviceType"
 import { Popover, PopoverContent, PopoverTrigger } from "./popover"
-import { toast } from "sonner"
 
 export interface ITaskProps {
   task: ITask
@@ -88,10 +87,6 @@ export const Task = ({
   }
 
   const handleOnSave = async () => {
-    if (!dataUpdate.title || dataUpdate.description) {
-      toast.info('Nenhum campo pode ser vazio')
-    }
-
     await handleUpdateTask({ taskID: task.id, data: dataUpdate })
   }
 
